@@ -28,7 +28,6 @@ export class AppComponent implements OnInit, OnDestroy {
   
   
   logout() {
-    this.authenticationService.logout();
   }
   ngOnDestroy(): void {
       this.userSub.unsubscribe();

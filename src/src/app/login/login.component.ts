@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthenticationService } from '../service/authentication/authentication.service';
-import { SignInData } from '../model/signinData';
+import { SignInData, SignInResponse } from '../model/signinData';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -16,18 +16,16 @@ export class LoginComponent implements OnInit {
   isFormValid = false;
   errorMessage = '';
   error = null;
+  IsAutenticated  = false
 
   areCredentialsInvalid = false;
 
-  constructor(private http: HttpClient,
+  constructor(
     private authenticationService: AuthenticationService,
     private router: Router
   ) {}
 
- ngOnInit(): void {
-      
- }
-
+  ngOnInit(): void {}
 
   public handleError(errorRes: HttpErrorResponse) {
     let errorMessage: string = errorRes.error.Message;
@@ -35,7 +33,6 @@ export class LoginComponent implements OnInit {
     return throwError(() => errorMessage);
   }
 
-  
   onSubmit(signInForm: NgForm): void {
     // console.log(signInForm);
     if (!signInForm.valid) {
@@ -46,31 +43,21 @@ export class LoginComponent implements OnInit {
     const loginame = signInForm.value.loginame;
     const password = signInForm.value.password;
 
-    let authObs: Observable<SignInData>;
+    let loginResult: Observable<SignInResponse>;
 
     this.isFormValid = true;
-    if (this.isLoginMode) {
-      authObs = this.authenticationService.login(loginame, password);
-    } else {
-      authObs = this.authenticationService.signin(loginame, password);
-    }
+    loginResult = this.authenticationService.login(loginame, password);
 
-    authObs.subscribe({
-      next: (errorMessage) => {
-        console.log(errorMessage);
-        this.isFormValid = false;
-        this.router.navigate(['/home']);
+    loginResult.subscribe({
+      next: (res) => {
+        if (res.isError) {
+          this.errorMessage = res.message;
+        } else {
+          this.errorMessage = 'Okkkkkk';
+          this.IsAutenticated = true;
+        }
       },
     });
-
-    (errorMessage) => {
-      // console.log('Message');
-      this.error = errorMessage;
-      this.isFormValid = false;
-    };
-
     signInForm.reset();
   }
-
-  
 }
