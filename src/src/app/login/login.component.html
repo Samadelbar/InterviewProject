@@ -1,0 +1,50 @@
+<div class="container">
+  <form
+    class="form-signin"
+    (ngSubmit)="onSubmit(signInForm)"
+    #signInForm="ngForm"
+  >
+    <legend>Please sign in</legend>
+    <div class="form-group">
+      <label for="loginame" class="sr-only" *ngIf="isFormValid">Login</label>
+      <input
+        type="text"
+        id="loginame"
+        class="form-control"
+        name="loginame"
+        placeholder="Loginame"
+        ngModel
+        required        
+      />
+      
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="sr-only">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        name="password"
+        placeholder="Password"
+        autocomplete="on"
+        ngModel
+        required
+      />
+    </div>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="!signInForm.valid"
+    >
+      Login
+    </button>
+
+    <div class="alert alert-danger" role="alert" *ngIf="isFormValid"
+    >
+     {{errorMessage}}
+                      
+              </div>
+    
+  </form>
+</div>

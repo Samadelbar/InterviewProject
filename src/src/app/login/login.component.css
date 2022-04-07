@@ -1,0 +1,15 @@
+.container {
+  margin: 8rem auto;
+  width: 25rem;
+}
+
+input {
+  margin-bottom: 2rem;
+}
+
+button {
+  margin-bottom: 2rem;
+}
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
