@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')){
+    if(localStorage.getItem('token')!=undefined){
           console.log("User is logged in");
           this.router.navigate(['/home']);    
   }}
@@ -60,6 +60,8 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Okkkkkk';
           this.IsAutenticated = true;
           localStorage.setItem('token', res.token);
+          this.router.navigate(['/home']);    
+
  }
       },
     });
