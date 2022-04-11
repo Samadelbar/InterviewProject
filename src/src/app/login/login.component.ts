@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthenticationService } from '../service/authentication/authentication.service';
-import { SignInData, SignInResponse } from '../model/signinData';
+import { SignInResponse } from '../model/signinData';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   error = null;
   IsAutenticated  = false
 
-  areCredentialsInvalid = false;
+  // areCredentialsInvalid = false;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -26,10 +26,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')){
+    if(localStorage.getItem('token')!=undefined){
           console.log("User is logged in");
-          this.router.navigate(['/home']);    
-  }}
+          this.router.navigate(['/home']) }
+}
 
   public handleError(errorRes: HttpErrorResponse) {
     let errorMessage: string = errorRes.error.Message;
@@ -60,8 +60,11 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Okkkkkk';
           this.IsAutenticated = true;
           localStorage.setItem('token', res.token);
- }
+          this.router.navigate(['/home'])  
+  }
+  
       },
+      
     });
     signInForm.reset();
   }
