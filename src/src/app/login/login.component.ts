@@ -25,7 +25,11 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(localStorage.getItem('token')){
+          console.log("User is logged in");
+          this.router.navigate(['/home']);    
+  }}
 
   public handleError(errorRes: HttpErrorResponse) {
     let errorMessage: string = errorRes.error.Message;
@@ -55,7 +59,8 @@ export class LoginComponent implements OnInit {
         } else {
           this.errorMessage = 'Okkkkkk';
           this.IsAutenticated = true;
-        }
+          localStorage.setItem('token', res.token);
+ }
       },
     });
     signInForm.reset();

@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignInData, SignInResponse } from 'src/app/model/signinData';
+import { SignInResponse } from 'src/app/model/signinData';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
@@ -32,7 +32,6 @@ export class AuthenticationService {
     // );
     // const user = new User(expireDate);
     // this.userSub.next(user);
-    localStorage.setItem('userData', JSON.stringify(response));
     response.isError = false;
     return response;
   }
