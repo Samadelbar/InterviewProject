@@ -16,20 +16,21 @@ export class LoginComponent implements OnInit {
   isFormValid = false;
   errorMessage = '';
   error = null;
-  IsAutenticated  = false
+  IsAutenticated = false
 
   areCredentialsInvalid = false;
 
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')!=undefined){
-          console.log("User is logged in");
-          this.router.navigate(['/home']);    
-  }}
+    if (localStorage.getItem('token') != undefined) {
+      console.log("User is logged in");
+      this.router.navigate(['/home']);
+    }
+  }
 
   public handleError(errorRes: HttpErrorResponse) {
     let errorMessage: string = errorRes.error.Message;
@@ -60,9 +61,9 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Okkkkkk';
           this.IsAutenticated = true;
           localStorage.setItem('token', res.token);
-          this.router.navigate(['/home']);    
+          this.router.navigate(['/home']);
 
- }
+        }
       },
     });
     signInForm.reset();
