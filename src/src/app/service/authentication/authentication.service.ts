@@ -14,13 +14,10 @@ export class AuthenticationService {
 
   login(loginame: string, password: string) {
     return this.http
-      .post<SignInResponse>(
-        'https://mdpapi.exphoenixfund.com/api/v1/Auth/sign-in',
-        {
-          loginame: loginame,
-          password: password,
-        }
-      )
+      .post<SignInResponse>('https://mdp.lomino.ir/api/v1/Auth/sign-in', {
+        loginame: loginame,
+        password: password,
+      })
       .pipe(
         tap(this.handleAuthentication.bind(this)),
         catchError(this.handleError)

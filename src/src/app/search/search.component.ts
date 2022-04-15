@@ -1,24 +1,35 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SignInData } from '../model/signinData';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { NgForm } from '@angular/forms';
+import { searchService } from '../service/search.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
 })
-export class SearchComponent {
-  userInput = '';
+export class SearchComponent implements OnInit {
+  txtsearch = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private searchService: searchService, private router: Router) {}
 
-  search(userInput: string) {
-    return this.http.post<SignInData>(
-      'https://mdp.lomino.ir/api/v1/Symbols/SearchSymbols',
-      {
-        userInput,
-      }
-    );
+  ngOnInit(): void {}
+
+  onSubmit(): void {
+    console.log(this.txtsearch);
+    let result = this.searchService.search(this.txtsearch);
+    result.subscribe({
+      next: (res) => {
+        if (res.isError) {
+          console.log(res.message);
+          console.log('we have some error');
+        } else {
+          console.log(res);
+        }
+      },
+    });
   }
 }

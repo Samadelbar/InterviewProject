@@ -1,0 +1,54 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, NgModuleRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { SignInResponse } from 'src/app/model/signinData';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs/internal/observable/of';
+import { SearchResponse } from '../search/search.option';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class searchService {
+  constructor(private http: HttpClient, private router: Router) {}
+
+  public search(txt: string) {
+    return this.http
+      .post<SearchResponse>(
+        'https://mdp.lomino.ir/api/v1/Symbols/SearchSymbols',
+        {
+          reportFilter: {
+            phrase: txt,
+          },
+          optionalFilter: {
+            take: 10,
+            page: 1,
+          },
+        }
+      )
+      .pipe(
+        tap(this.handleAuthentication.bind(this)),
+        catchError(this.handleError)
+      );
+  }
+  private handleAuthentication(response: SearchResponse): SearchResponse {
+    response.isError = false;
+    return response;
+  }
+
+  handleError(errorRes: HttpErrorResponse): Observable<SearchResponse> {
+    if (errorRes.status == 401) {
+      let errorMessage: string = 'دسترسی ندارید';
+      var model = {} as SearchResponse;
+      model.isError = true;
+      model.message = errorMessage;
+      return of(model);
+    }
+    let errorMessage: string = errorRes.error.message;
+    var model = {} as SearchResponse;
+    model.isError = true;
+    model.message = errorMessage;
+    return of(model);
+  }
+}
