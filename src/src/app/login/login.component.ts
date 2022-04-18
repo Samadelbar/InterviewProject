@@ -39,10 +39,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(signInForm: NgForm): void {
-    // console.log(signInForm);
     if (!signInForm.valid) {
       this.isFormValid = true;
-      // this.areCredentialsInvalid = false;
       return;
     }
     const loginame = signInForm.value.loginame;

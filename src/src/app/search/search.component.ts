@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SignInData } from '../model/signinData';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { NgForm } from '@angular/forms';
 import { searchService } from '../service/search.service';
 
 @Component({
@@ -28,6 +27,8 @@ export class SearchComponent implements OnInit {
           console.log('we have some error');
         } else {
           console.log(res);
+          localStorage.setItem('token',res.message);
+          this.router.navigate(['/home']);
         }
       },
     });

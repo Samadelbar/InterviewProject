@@ -17,11 +17,6 @@ export class HomeComponent implements OnInit {
                  
 
   ngOnInit(){
-    // this.isLoggedIn = this.authenticationService.checkAuth()
          
      }
 }
-
-  // public onUserRedirect(){
-    
-  // }

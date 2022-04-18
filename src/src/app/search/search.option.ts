@@ -5,6 +5,7 @@ export interface SearchResponse {
   pageSize: number;
   created: string;
   result: SearchResponseItem[];
+  status: number,
 }
 export interface SearchResponseItem {
   tseInsCode: string;

@@ -20,11 +20,8 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.authenticationService.autoLogin()
       }
-      // user =>{this.isAuthenticated = !!user;
-      // console.log(!user);
-      // console.log(!!user);
+      
   
   
   logout() {

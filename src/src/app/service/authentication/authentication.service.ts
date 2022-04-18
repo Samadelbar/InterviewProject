@@ -24,11 +24,7 @@ export class AuthenticationService {
       );
   }
   private handleAuthentication(response: SignInResponse): SignInResponse {
-    // const expireDate = new Date(
-    //   new Date().getTime() + +response.expiresIn * 1000
-    // );
-    // const user = new User(expireDate);
-    // this.userSub.next(user);
+    
     response.isError = false;
     return response;
   }
