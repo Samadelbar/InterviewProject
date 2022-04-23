@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignInResponse } from 'src/app/model/signinData';
@@ -11,7 +11,7 @@ import { SearchResponse } from '../search/search.option';
   providedIn: 'root',
 })
 export class searchService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   public search(txt: string) {
     return this.http
@@ -24,7 +24,13 @@ export class searchService {
           optionalFilter: {
             take: 10,
             page: 1,
-          },
+          }
+        }
+        ,
+        {
+          headers: new HttpHeaders()
+            .append("content-type", "application/json")
+            .append('Authorization', 'Bearer '+localStorage.getItem('token')!),
         }
       )
       .pipe(
