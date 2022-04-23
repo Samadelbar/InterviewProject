@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignInData } from '../model/signinData';
 import { searchService } from '../service/search.service';
+import { FormControl } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -10,10 +12,25 @@ import { searchService } from '../service/search.service';
 })
 export class SearchComponent implements OnInit {
   txtsearch = '';
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions?: Observable<string[]>;
 
   constructor(private searchService: searchService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter((option) =>
+      option.toLowerCase().includes(filterValue)
+    );
+  }
 
   onSubmit(): void {
     console.log(this.txtsearch);
