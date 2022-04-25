@@ -5,16 +5,16 @@ export interface SearchResponse {
   pageSize: number;
   created: string;
   result: SearchResponseItem[];
-  status: number,
+  statusCode: number,
 }
 export interface SearchResponseItem {
   tseInsCode: string;
   isin: string;
   enName: string;
   symbolEnName: string;
-  title: string;
+  title?: string;
   name: string;
-  symbol: string;
+  symbol?: string;
   companyPersianName: string;
   marketCap: number;
   score: number;

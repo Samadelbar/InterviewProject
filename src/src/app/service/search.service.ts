@@ -49,6 +49,7 @@ export class searchService {
       var model = {} as SearchResponse;
       model.isError = true;
       model.message = errorMessage;
+      model.statusCode = errorRes.status;
       return of(model);
     }
     let errorMessage: string = errorRes.error.message;
