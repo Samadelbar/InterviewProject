@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, tap, switchMap, finalize } from 'rxjs/operators';
+import { SearchResponse, SearchResponseItem } from './search.option';
 
 @Component({
   selector: 'app-search',
@@ -18,35 +19,51 @@ export class SearchComponent implements OnInit {
   // filteredOptions?: Observable<string[]>;
   isLoading = false;
   filteredSymbols: any;
+  result : SearchResponseItem[] = []
 
   constructor(private searchService: searchService, private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.filteredSymbols = this.myControl.valueChanges.pipe(
+    let some= this.myControl.valueChanges.pipe(
       debounceTime(500),
       tap(() => {
         this.filteredSymbols = [];
         this.isLoading = true;
       } 
     ),
-    switchMap(value => this.http.get("https://mdp.lomino.ir/api/v1/Symbols/SearchSymbols" + value)
+    switchMap<string,Observable<SearchResponse>>(value => this.searchService.search(value))
+    )
     .pipe(
-      finalize(() => {
+      tap(() => {
         this.isLoading = false
       }),
-    )))
-    .subscribe(data => {
-      if (data['Search'] == undefined){
-        this.filteredSymbols = [];
-      }else{
-        this.filteredSymbols = data['Search'];
+    )
+    .subscribe(res => {
+      if (res.isError) {
+        console.log(res.message);
+        console.log('we have some error');
+        if (res.statusCode == 401){
+          localStorage.removeItem('token');
+          this.router.navigate([''])
+          
+        }
+      } else {
+        console.log(res);
+        this.result = res.result
+
       }
-      console.log(this.filteredSymbols);
     })
 
-    if (localStorage.getItem('token') == undefined) {
-      this.router.navigate(['']);
-    }
+    //   if (data['Search'] == undefined){
+    //     this.filteredSymbols = [];
+    //   }else{
+    //     this.filteredSymbols = data['Search'];
+    //   }
+    //   console.log(this.filteredSymbols);
+    // })
+
+    // if (localStorage.getItem('token') == undefined) {
+    //   this.router.navigate(['']);
   }
   // private _filter(value: string): string[] {
   //   const filterValue = value.toLowerCase();
@@ -56,26 +73,5 @@ export class SearchComponent implements OnInit {
   //   );
   // }
 
-  onSubmit(): void {
-    console.log(this.txtsearch);
-    if(this.txtsearch.length < 3){
-      return
-    }
-    let result = this.searchService.search(this.txtsearch);
-    result.subscribe({
-      next: (res) => {
-        if (res.isError) {
-          console.log(res.message);
-          console.log('we have some error');
-          if (res.statusCode == 401){
-            localStorage.removeItem('token');
-            this.router.navigate([''])
-            
-          }
-        } else {
-          console.log(res);
-        }
-      },
-    });
-  }
+    
 }

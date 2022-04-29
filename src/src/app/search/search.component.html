@@ -18,8 +18,8 @@
                   Loading...
                 </mat-option>
                 <ng-container *ngIf="!isLoading">
-                  <mat-option *ngFor="let movie of filteredSymbols" [value]="Symbol?.toString">
-                    <span><b>{{Symbol?.toString}}</b> </span>
+                  <mat-option *ngFor="let symbol of result" [value]="symbol?.name">
+                    <span><b>{{symbol?.title}}</b> </span>
                   </mat-option>
                 </ng-container>
               </mat-autocomplete>
