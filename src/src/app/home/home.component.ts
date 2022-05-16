@@ -14,7 +14,9 @@ export class HomeComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
           private router: Router) { }
 
-                 
+  goSearch(){
+    this.router.navigate(['/search']);
+  }            
 
   ngOnInit(){
          
