@@ -19,11 +19,17 @@ export class SearchComponent implements OnInit {
   // filteredOptions?: Observable<string[]>;
   isLoading = false;
   filteredSymbols: any;
-  result : SearchResponseItem[] = []
+  result : SearchResponseItem[] = [];
+  currentValue ?: SearchResponseItem;
 
   constructor(private searchService: searchService, private router: Router, private http: HttpClient) {}
+  OnHumanSelected() {
+    console.log(this.myControl.value); // get from viewI 
+    console.log("I AM New one"); // get from view
 
+  }
   ngOnInit(): void {
+
     let some= this.myControl.valueChanges.pipe(
       debounceTime(500),
       tap(() => {
@@ -41,16 +47,13 @@ export class SearchComponent implements OnInit {
     .subscribe(res => {
       if (res.isError) {
         console.log(res.message);
-        console.log('we have some error');
         if (res.statusCode == 401){
           localStorage.removeItem('token');
           this.router.navigate([''])
           
         }
       } else {
-        console.log(res);
-        this.result = res.result
-
+        this.result = res.result;
       }
     })
 

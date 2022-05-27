@@ -6,6 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { SearchResponse } from '../search/search.option';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class searchService {
         {
           headers: new HttpHeaders()
             .append("content-type", "application/json")
-            .append('Authorization', 'Bearer '+localStorage.getItem('token')!),
+            .append('Authorization', 'Bearer ' + localStorage.getItem('token')!),
         }
       )
       .pipe(
@@ -42,7 +43,6 @@ export class searchService {
     response.isError = false;
     return response;
   }
-
   handleError(errorRes: HttpErrorResponse): Observable<SearchResponse> {
     if (errorRes.status == 401) {
       let errorMessage: string = 'دسترسی ندارید';
@@ -57,5 +57,12 @@ export class searchService {
     model.isError = true;
     model.message = errorMessage;
     return of(model);
+  }
+  public currentIsin?: string;
+  public subject = new Subject<any>();
+  private messageSource = new BehaviorSubject(this.currentIsin);
+  currentMessage = this.messageSource.asObservable();
+  changeMessage(message: string) {
+    this.messageSource.next(message)
   }
 }

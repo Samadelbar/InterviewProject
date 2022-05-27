@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { debounceTime, tap, switchMap, finalize } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { descResponseItems } from './descData';
+import { searchService } from '../service/search.service';
 
 @Component({
   selector: 'app-desc-company',
@@ -35,7 +36,7 @@ export class DescCompanyComponent implements OnInit {
   }
 
   
-  constructor(private DescCompanyService: DescCompanyService, private router: Router, private http: HttpClient) {}
+  constructor(private searchService : searchService, private DescCompanyService: DescCompanyService, private router: Router, private http: HttpClient) {}
 
   performFilter(filterBy: string): descResponseItems[] {
     filterBy = filterBy.toLocaleLowerCase();
@@ -46,14 +47,17 @@ export class DescCompanyComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.searchService.currentMessage.subscribe(
+      message => this.symbolName = message
+      );
 
-    this.DescCompanyService.getDesc().subscribe({
-      next: filteredSymbols =>
-        this.filteredSymbols = this.result,
-      },
-      // error: error => this.errorMessage = err
-    )};
+    // this.DescCompanyService.getDesc().subscribe({
+    //   next: filteredSymbols =>
+    //     this.filteredSymbols = this.result,
+    //   },
+    //   // error: error => this.errorMessage = err
+    // )};
   }
-  
+}
 
 

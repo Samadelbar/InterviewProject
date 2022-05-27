@@ -17,7 +17,7 @@
                   Loading...
                 </mat-option>
                 <ng-container *ngIf="!isLoading">
-                  <mat-option *ngFor="let symbol of result" [value]="symbol?.name">
+                  <mat-option (click)="OnHumanSelected()" *ngFor="let symbol of result" [value]="symbol?.isin">
                     <span><b>{{symbol?.title}}</b> </span>
                   </mat-option>
                 </ng-container>
