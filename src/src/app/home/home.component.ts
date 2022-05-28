@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
           private router: Router) { }
 
   goSearch(){
-    this.router.navigate(['/search']);
+    this.router.navigate(['/stock-view']);
   }            
 
   ngOnInit(){

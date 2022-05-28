@@ -26,6 +26,7 @@ export class SearchComponent implements OnInit {
   OnHumanSelected() {
     console.log(this.myControl.value); // get from viewI 
     console.log("I AM New one"); // get from view
+    this.searchService.changeMessage(this.myControl.value)
 
   }
   ngOnInit(): void {

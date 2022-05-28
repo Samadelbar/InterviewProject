@@ -1,17 +1,17 @@
-<main role="main" class="container">
+<main role="main" class="container" dir="rtl">
     <div class="jumbotron">
       <br><br>
-        <div class="box">
-          <h1>Search</h1>
-          <form class="example-form">
+        <div class="box" >
+          <h2>جستجو</h2>
+          <form class="example-form" >
             <mat-form-field class="example-full-width" appearance="fill">
-              <br> <mat-label>Symbols</mat-label>
+              <br> <mat-label>نماد</mat-label>
               <input type="text"
-                     placeholder="Search"
+                     placeholder="جستجو"
                      aria-label="Symbols"
                      matInput
                      [formControl]="myControl"
-                     [matAutocomplete]="auto">
+                     [matAutocomplete]="auto" >
               <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                 <mat-option *ngIf="isLoading" class="is-loading">
                   Loading...

@@ -18,6 +18,7 @@ import {
   NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
 import { DescCompanyComponent } from './desc-company/desc-company.component';
+import { StockViewComponent } from './stock-view/stock-view.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { DescCompanyComponent } from './desc-company/desc-company.component';
     NotfoundComponent,
     SearchComponent,
     DescCompanyComponent,
+    StockViewComponent,
   ],
   imports: [
     BrowserModule,
