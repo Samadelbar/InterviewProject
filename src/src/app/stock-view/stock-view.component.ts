@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stock-view.component.css']
 })
 export class StockViewComponent implements OnInit {
+  isReadMore = true
+  readMore = false
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  showText() {
+    this.isReadMore = !this.isReadMore
+ }
 }

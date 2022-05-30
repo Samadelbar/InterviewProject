@@ -1,0 +1,23 @@
+*{
+   padding-right: 10px; 
+}
+h5, p{
+      margin-top: 20px;
+}
+.p2{
+    
+    font-size: 14px;
+   direction: rtl;   
+    text-align: justify;
+  }
+.limitTextHeight {
+    height: 12rem;
+    overflow: hidden;
+     padding: 2rem;
+}
+button{
+    color: blue;
+}
+button:hover{
+    text-decoration: underline;
+}

@@ -7,11 +7,7 @@
     
     
    }
-h2{
-    margin-bottom: 10px;
-    padding: 0;
-    font-size: 24px;
-    }
+
 
 .example-form {
   min-width: 50px;
@@ -26,3 +22,9 @@ h2{
   /* background-color: aqua; */
   cursor: pointer;
 }
+.form-control-sm {
+  height: calc(2em + 1.5rem + 6px);
+  padding: 0.25rem 0.5rem;
+  font-size: 12px;
+  line-height: 1;
+  border-radius: 5px;}
