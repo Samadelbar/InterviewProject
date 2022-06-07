@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../service/authentication/authentication.service';
 
@@ -10,6 +10,13 @@ import { AuthenticationService } from '../service/authentication/authentication.
 export class HomeComponent implements OnInit {
 
   isLoggedIn: boolean = false
+
+  @Output() searchValue = new EventEmitter<string>();
+
+  public searchRedirection(selectedSolutionId: string) {
+     this.searchValue.emit(selectedSolutionId);
+     this.router.navigate(['/category/' + selectedSolutionId]);
+   }
 
   constructor(private authenticationService: AuthenticationService,
           private router: Router) { }
