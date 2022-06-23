@@ -19,6 +19,7 @@ import {
 } from '@angular/platform-browser/animations';
 import { DescCompanyComponent } from './desc-company/desc-company.component';
 import { StockViewComponent } from './stock-view/stock-view.component';
+import { ReverseScreenerFilterComponent } from './reverse-screener-filter/reverse-screener-filter.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { StockViewComponent } from './stock-view/stock-view.component';
     SearchComponent,
     DescCompanyComponent,
     StockViewComponent,
+    ReverseScreenerFilterComponent,
   ],
   imports: [
     BrowserModule,
