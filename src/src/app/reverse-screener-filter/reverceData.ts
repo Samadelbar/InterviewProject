@@ -1,5 +1,7 @@
-export interface reverseItem {
-    code: number;
-    text: string;
-    title: string
+import { baseResponseModel } from "../model/baseResponseModel";
+
+export interface reverseItem extends baseResponseModel {
+  code: number;
+  text: string;
+  title: string;
 }

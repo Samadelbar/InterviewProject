@@ -11,7 +11,7 @@ import { reverseItem } from './reverse-screener-filter/reverceData';
   providedIn: 'root'
 })
 export class ReverseScreenerFilterService {
-  private descUrl = 'https://mdp.lomino.ir/api/v1/StockScreener/Reverse/IRO1IKCO0001';
+  private descUrl = 'https://mdp.lomino.ir/api/v1/StockScreener/Reverse/';
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -27,28 +27,28 @@ export class ReverseScreenerFilterService {
             .append('Authorization', 'Bearer ' + localStorage.getItem('token')!),
         }
       )
-      // .pipe(
-      //   tap(this.handleAuthentication.bind(this)),
-      //   catchError(this.handleError)
-      // );
+      .pipe(
+        tap(this.handleAuthentication.bind(this)),
+        catchError(this.handleError)
+      );
   }
-  // private handleAuthentication(response: reverseItem): reverseItem {
-  //   response.isError = false;
-  //   return response;
-  // }
-  // handleError(errorRes: HttpErrorResponse): Observable<reverseItem> {
-  //   if (errorRes.status == 401) {
-  //     let errorMessage: string = 'دسترسی ندارید';
-  //     var model = {} as reverseItem;
-  //     model.isError = true;
-  //     model.message = errorMessage;
-  //     model.statusCode = errorRes.status;
-  //     return of(model);
-  //   }
-  //   let errorMessage: string = errorRes.error.message;
-  //   var model = {} as reverseItem;
-  //   model.isError = true;
-  //   model.message = errorMessage;
-  //   return of(model);
-  // }
+  private handleAuthentication(response: reverseItem): reverseItem {
+    response.isError = false;
+    return response;
+  }
+  handleError(errorRes: HttpErrorResponse): Observable<reverseItem> {
+    if (errorRes.status == 401) {
+      let errorMessage: string = 'دسترسی ندارید';
+      var model = {} as reverseItem;
+      model.isError = true;
+      model.message = errorMessage;
+      model.statusCode = errorRes.status;
+      return of(model);
+    }
+    let errorMessage: string = errorRes.error.message;
+    var model = {} as reverseItem;
+    model.isError = true;
+    model.message = errorMessage;
+    return of(model);
+  }
 }

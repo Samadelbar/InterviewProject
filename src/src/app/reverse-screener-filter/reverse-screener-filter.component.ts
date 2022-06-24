@@ -16,7 +16,7 @@ export class ReverseScreenerFilterComponent implements OnInit {
   title?:string
 
   constructor(private searchService : searchService,
-    //  private DescCompanyService: DescCompanyService,
+     private DescCompanyService: DescCompanyService,
       private ReverseScreenerFilterService: ReverseScreenerFilterService, private router: Router) {}
 
   ngOnInit(): void {
@@ -33,10 +33,14 @@ export class ReverseScreenerFilterComponent implements OnInit {
     
         reverseResult.subscribe({
           next: (res) => {
-                          
-              this.text = res.title
-                  
+            if (res.isError && res.statusCode == 401) {
+                  //  بعدا کامل شود
+                  } else {
+                    console.log(res.text)
+                    this.title = res.text
+                    
+                   
             }
-          },
-        )
+          }
+        })
       }}
