@@ -37,7 +37,7 @@ export class ReverseScreenerFilterComponent implements OnInit {
                   //  بعدا کامل شود
                   } else {
                     console.log(res.text)
-                    this.title = res.text
+                    this.text = res.title
                     
                    
             }
