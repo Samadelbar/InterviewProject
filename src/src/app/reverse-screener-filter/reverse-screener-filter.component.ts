@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DescCompanyService } from '../service/desc-company.service';
 import { searchService } from '../service/search.service';
 import { reverseItem } from './reverceData';
-import {ReverseScreenerFilterService} from '../reverse-screener-filter.service'
+import {ReverseScreenerFilterService} from '../service/reverse-screener-filter.service'
 
 @Component({
   selector: 'app-reverse-screener-filter',

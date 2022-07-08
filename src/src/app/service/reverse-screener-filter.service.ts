@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
-import { reverseItem } from './reverse-screener-filter/reverceData';
+import { reverseItem } from '../reverse-screener-filter/reverceData';
 
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ReverseScreenerFilterService } from './reverse-screener-filter.service';
+import { ReverseScreenerFilterService } from './service/reverse-screener-filter.service';
 
 describe('ReverseScreenerFilterService', () => {
   let service: ReverseScreenerFilterService;
