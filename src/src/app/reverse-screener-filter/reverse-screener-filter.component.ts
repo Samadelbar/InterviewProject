@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DescCompanyService } from '../service/desc-company.service';
 import { searchService } from '../service/search.service';
-import { reverseItem } from './reverceData';
-import {ReverseScreenerFilterService} from '../service/reverse-screener-filter.service'
+import { reverseItem, ReverseResponse } from './reverceData';
+import { ReverseScreenerFilterService } from '../service/reverse-screener-filter.service'
 
 @Component({
   selector: 'app-reverse-screener-filter',
@@ -12,35 +12,31 @@ import {ReverseScreenerFilterService} from '../service/reverse-screener-filter.s
   styleUrls: ['./reverse-screener-filter.component.css']
 })
 export class ReverseScreenerFilterComponent implements OnInit {
-  text?:string
-  title?:string
+  data?: reverseItem[];
 
-  constructor(private searchService : searchService,
-     private DescCompanyService: DescCompanyService,
-      private ReverseScreenerFilterService: ReverseScreenerFilterService, private router: Router) {}
+  constructor(private searchService: searchService,
+    private DescCompanyService: DescCompanyService,
+    private ReverseScreenerFilterService: ReverseScreenerFilterService, private router: Router) { }
 
   ngOnInit(): void {
     this.searchService.currentMessage.subscribe(
-      message => this.search (message!)
-      );
-    }
+      message => this.search(message!)
+    );
+  }
 
-      public search(isin: string) {
-        this.ReverseScreenerFilterService.getDesc(isin)
-        let reverseResult: Observable<reverseItem>;
+  public search(isin: string) {
+    this.ReverseScreenerFilterService.getDesc(isin)
+    let reverseResult: Observable<ReverseResponse>;
 
-        reverseResult = this.ReverseScreenerFilterService.getDesc(isin);
-    
-        reverseResult.subscribe({
-          next: (res) => {
-            if (res.isError && res.statusCode == 401) {
-                  //  بعدا کامل شود
-                  } else {
-                    console.log(res.text)
-                    this.text = res.title
-                    
-                   
-            }
-          }
-        })
-      }}
+    reverseResult = this.ReverseScreenerFilterService.getDesc(isin);
+    reverseResult.subscribe({
+      next: (res) => {
+        if (res.isError && res.statusCode == 401) {
+          //  بعدا کامل شود
+        } else {
+          this.data = res.result
+        }
+      }
+    })
+  }
+}

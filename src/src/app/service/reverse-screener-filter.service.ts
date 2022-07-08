@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
-import { reverseItem } from '../reverse-screener-filter/reverceData';
+import { reverseItem, iReverseResponse, ReverseResponse } from '../reverse-screener-filter/reverceData';
 
 
 @Injectable({
@@ -18,35 +18,39 @@ export class ReverseScreenerFilterService {
 
   public getDesc(isin: string) {
     return this.http
-      .get<reverseItem>(
-        this.descUrl+ isin,
-                
+      .get<reverseItem[]>(
+        this.descUrl + isin,
         {
           headers: new HttpHeaders()
             .append("content-type", "application/json")
             .append('Authorization', 'Bearer ' + localStorage.getItem('token')!),
         }
       )
+      .pipe(map(x => {
+        var model = new ReverseResponse()
+        model.result = x
+        return model;
+      }))
       .pipe(
         tap(this.handleAuthentication.bind(this)),
         catchError(this.handleError)
       );
   }
-  private handleAuthentication(response: reverseItem): reverseItem {
+  private handleAuthentication(response: iReverseResponse): iReverseResponse {
     response.isError = false;
     return response;
   }
-  handleError(errorRes: HttpErrorResponse): Observable<reverseItem> {
+  handleError(errorRes: HttpErrorResponse): Observable<iReverseResponse> {
     if (errorRes.status == 401) {
       let errorMessage: string = 'دسترسی ندارید';
-      var model = {} as reverseItem;
+      var model = new ReverseResponse();
       model.isError = true;
       model.message = errorMessage;
       model.statusCode = errorRes.status;
       return of(model);
     }
     let errorMessage: string = errorRes.error.message;
-    var model = {} as reverseItem;
+    var model = new ReverseResponse()
     model.isError = true;
     model.message = errorMessage;
     return of(model);
