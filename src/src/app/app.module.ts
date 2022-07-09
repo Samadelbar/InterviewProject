@@ -20,6 +20,7 @@ import {
 import { DescCompanyComponent } from './desc-company/desc-company.component';
 import { StockViewComponent } from './stock-view/stock-view.component';
 import { ReverseScreenerFilterComponent } from './reverse-screener-filter/reverse-screener-filter.component';
+import { StockReturnsComponent } from './stock-returns/stock-returns.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ReverseScreenerFilterComponent } from './reverse-screener-filter/revers
     DescCompanyComponent,
     StockViewComponent,
     ReverseScreenerFilterComponent,
+    StockReturnsComponent,
   ],
   imports: [
     BrowserModule,

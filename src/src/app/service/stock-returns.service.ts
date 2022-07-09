@@ -1,22 +1,24 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
-import { descResponseItems } from '../desc-company/descData';
+import { StockDataResponse } from '../stock-returns/stockData';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class DescCompanyService {
-  private descUrl = 'https://mdp.lomino.ir/api/v1/Fundamental/';
-  
-  constructor(private http: HttpClient, private router: Router) { }
+export class StockReturnsService {
+  private descUrl = 'https://mdp.lomino.ir/api/v1/Symbols/efficiency?';
 
+  constructor(private http: HttpClient, private router: Router) { }
+   
   public getDesc(isin: string) {
     return this.http
-      .get< descResponseItems>(
+      .get< StockDataResponse>(
         this.descUrl+ isin,
                 
         {
@@ -30,25 +32,23 @@ export class DescCompanyService {
         catchError(this.handleError)
       );
   }
-  private handleAuthentication(response:  descResponseItems):  descResponseItems {
+  private handleAuthentication(response:  StockDataResponse):  StockDataResponse {
     response.isError = false;
     return response;
   }
-  handleError(errorRes: HttpErrorResponse): Observable< descResponseItems> {
+  handleError(errorRes: HttpErrorResponse): Observable< StockDataResponse> {
     if (errorRes.status == 401) {
       let errorMessage: string = 'دسترسی ندارید';
-      var model = {} as  descResponseItems;
+      var model = {} as  StockDataResponse;
       model.isError = true;
       model.message = errorMessage;
       model.statusCode = errorRes.status;
       return of(model);
     }
     let errorMessage: string = errorRes.error.message;
-    var model = {} as  descResponseItems;
+    var model = {} as  StockDataResponse;
     model.isError = true;
     model.message = errorMessage;
     return of(model);
   }
- 
- 
-  }
+}
