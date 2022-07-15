@@ -1,12 +1,12 @@
 import { baseResponseModel } from "../model/baseResponseModel";
 
 export interface StockData {
-    symbol: number;
-    sector: number;
-    index: number
+   
   }
   export interface StockDataResponse extends baseResponseModel{
-   
+    symbol: number;
+    sector: number;
+    index: number;
     week: number;
     month: number;
     year: number;

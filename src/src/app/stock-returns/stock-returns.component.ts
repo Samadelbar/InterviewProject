@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DescCompanyService } from '../service/desc-company.service';
 import { searchService } from '../service/search.service';
 import { StockReturnsService } from '../service/stock-returns.service'
 import { StockData, StockDataResponse } from './stockData';
@@ -16,7 +15,6 @@ export class StockReturnsComponent implements OnInit {
   
 
   constructor(private searchService: searchService,
-    private DescCompanyService: DescCompanyService,
     private StockReturnsService: StockReturnsService, private router: Router) { }
 
   ngOnInit(): void {

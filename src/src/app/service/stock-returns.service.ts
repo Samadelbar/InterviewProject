@@ -12,13 +12,13 @@ import { StockDataResponse } from '../stock-returns/stockData';
   providedIn: 'root'
 })
 export class StockReturnsService {
-  private descUrl = 'https://mdp.lomino.ir/api/v1/Symbols/efficiency?';
+  private descUrl = 'https://mdp.lomino.ir/api/v1/Symbols/efficiency?/';
 
   constructor(private http: HttpClient, private router: Router) { }
    
   public getDesc(isin: string) {
     return this.http
-      .get< StockDataResponse>(
+      .get<StockDataResponse>(
         this.descUrl+ isin,
                 
         {
@@ -32,7 +32,7 @@ export class StockReturnsService {
         catchError(this.handleError)
       );
   }
-  private handleAuthentication(response:  StockDataResponse):  StockDataResponse {
+  private handleAuthentication(response: StockDataResponse):  StockDataResponse {
     response.isError = false;
     return response;
   }
