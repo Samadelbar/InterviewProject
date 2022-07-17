@@ -57,25 +57,5 @@ export class SearchComponent implements OnInit {
         this.result = res.result;
       }
     })
-
-    //   if (data['Search'] == undefined){
-    //     this.filteredSymbols = [];
-    //   }else{
-    //     this.filteredSymbols = data['Search'];
-    //   }
-    //   console.log(this.filteredSymbols);
-    // })
-
-    // if (localStorage.getItem('token') == undefined) {
-    //   this.router.navigate(['']);
-  }
-  // private _filter(value: string): string[] {
-  //   const filterValue = value.toLowerCase();
-
-  //   return this.options.filter((option) =>
-  //     option.toLowerCase().includes(filterValue)
-  //   );
-  // }
-
-    
+  }  
 }
