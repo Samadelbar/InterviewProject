@@ -1,14 +1,27 @@
-export interface StockData {
-  symbol: string;
-  sector: string;
-  index: string;
-  isError: boolean;
-  message: string;
-  statusCode: number;
-  result: StockDataResponse;
-}
-export interface StockDataResponse {
+import { baseResponseModel } from "../model/baseResponseModel";
+
+export interface Symbol {
   week: number;
   month: number;
   year: number;
 }
+
+export interface Sector {
+  week: number;
+  month: number;
+  year: number;
+}
+
+export interface Index {
+  week: number;
+  month: number;
+  year: number;
+}
+
+export interface StockDataResponse extends baseResponseModel {
+  symbol: Symbol;
+  sector: Sector;
+  index: Index;
+}
+
+

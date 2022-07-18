@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { searchService } from '../service/search.service';
 import { StockReturnsService } from '../service/stock-returns.service'
-import { StockData, StockDataResponse } from './stockData';
+import { StockDataResponse } from './stockData';
 
 @Component({
   selector: 'app-stock-returns',
@@ -13,9 +13,9 @@ import { StockData, StockDataResponse } from './stockData';
 })
 export class StockReturnsComponent implements OnInit {
   result?: StockDataResponse
-  
 
-  constructor( private http: HttpClient, private searchService: searchService,
+
+  constructor(private http: HttpClient, private searchService: searchService,
     private StockReturnsService: StockReturnsService, private router: Router) { }
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class StockReturnsComponent implements OnInit {
 
   public search(isin: string) {
     this.StockReturnsService.getDesc(isin)
-    let stockResult: Observable<StockData>;
+    let stockResult: Observable<StockDataResponse>;
 
     stockResult = this.StockReturnsService.getDesc(isin);
     stockResult.subscribe({
@@ -34,11 +34,11 @@ export class StockReturnsComponent implements OnInit {
         if (res.isError && res.statusCode == 401) {
           //  بعدا کامل شود
         } else {
-          this.result 
+          this.result = res;
         }
       }
     })
   }
-  }
+}
 
 
