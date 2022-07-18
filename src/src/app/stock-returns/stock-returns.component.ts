@@ -35,6 +35,7 @@ export class StockReturnsComponent implements OnInit {
           //  بعدا کامل شود
         } else {
           this.result = res;
+        this.result.index.month = Math.trunc(this.result.index.month* 100) / 100;
         }
       }
     })
