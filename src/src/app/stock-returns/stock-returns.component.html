@@ -12,21 +12,21 @@
       </tr>
       <tr>
         <th>سهم</th>
-        <td>{{result?.symbol?.week}}</td>
-        <td>{{result?.symbol?.month}}</td>
-        <td>{{result?.symbol?.year}}</td><br>
+        <td>{{result?.symbol?.week | number}}</td>
+        <td>{{result?.symbol?.month | number}}</td>
+        <td>{{result?.symbol?.year | number}}</td><br>
       </tr>
       <tr>
         <th>گروه</th>
-        <td>{{result?.sector?.week}}</td>
-        <td>{{result?.sector?.month}}</td>
-        <td>{{result?.sector?.year}}</td><br>
+        <td>{{result?.sector?.week | number}}</td>
+        <td>{{result?.sector?.month | number}}</td>
+        <td>{{result?.sector?.year | number}}</td><br>
       </tr>
       <tr>
         <th>بازار</th>
-        <td>{{result?.index?.week}}</td>
-        <td>{{result?.index?.month}}</td>
-        <td>{{result?.index?.year}}</td><br>
+        <td>{{result?.index?.week | number}}</td>
+        <td>{{result?.index?.month | number}}</td>
+        <td>{{result?.index?.year | number}}</td><br>
       </tr>
     </table>
 

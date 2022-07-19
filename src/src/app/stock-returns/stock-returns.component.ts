@@ -14,7 +14,6 @@ import { StockDataResponse } from './stockData';
 export class StockReturnsComponent implements OnInit {
   result?: StockDataResponse
 
-
   constructor(private http: HttpClient, private searchService: searchService,
     private StockReturnsService: StockReturnsService, private router: Router) { }
 
@@ -22,6 +21,7 @@ export class StockReturnsComponent implements OnInit {
     this.searchService.currentMessage.subscribe(
       message => this.search(message!)
     );
+    
   }
 
   public search(isin: string) {
@@ -40,6 +40,8 @@ export class StockReturnsComponent implements OnInit {
       }
     })
   }
+
+  
 }
 
 

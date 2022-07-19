@@ -21,6 +21,7 @@ import { DescCompanyComponent } from './desc-company/desc-company.component';
 import { StockViewComponent } from './stock-view/stock-view.component';
 import { ReverseScreenerFilterComponent } from './reverse-screener-filter/reverse-screener-filter.component';
 import { StockReturnsComponent } from './stock-returns/stock-returns.component';
+import { HighchartsComponent } from './highcharts/highcharts.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { StockReturnsComponent } from './stock-returns/stock-returns.component';
     StockViewComponent,
     ReverseScreenerFilterComponent,
     StockReturnsComponent,
+    HighchartsComponent,
   ],
   imports: [
     BrowserModule,

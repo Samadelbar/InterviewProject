@@ -1,0 +1,7 @@
+#chart-line {
+    display: block;
+    min-width: 300px;
+    max-width: 600px;
+    height: 400px;
+    margin: 0 auto;
+  }
