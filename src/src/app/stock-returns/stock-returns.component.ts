@@ -21,7 +21,7 @@ export class StockReturnsComponent implements OnInit {
     this.searchService.currentMessage.subscribe(
       message => this.search(message!)
     );
-    
+
   }
 
   public search(isin: string) {
@@ -31,17 +31,23 @@ export class StockReturnsComponent implements OnInit {
     stockResult = this.StockReturnsService.getDesc(isin);
     stockResult.subscribe({
       next: (res) => {
-        if (res.isError && res.statusCode == 401) {
-          //  بعدا کامل شود
+        if (res.isError) {
+          console.log(res.message);
+          if (res.statusCode == 401) {
+            localStorage.removeItem('token');
+            this.router.navigate([''])
+
+          }
+
         } else {
           this.result = res;
-        this.result.index.month = Math.trunc(this.result.index.month* 100) / 100;
+          this.result.index.month = Math.trunc(this.result.index.month * 100) / 100;
         }
       }
     })
   }
 
-  
+
 }
 
 

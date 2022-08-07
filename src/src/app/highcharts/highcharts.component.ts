@@ -15,81 +15,63 @@ import { chartResponse } from '../highcharts/chartData'
 export class HighchartsComponent implements OnInit {
   result?: chartResponse
 
-  constructor(private http: HttpClient, private searchService: searchService,
+  constructor(private http: HttpClient,
     private highchartService: HighchartService, private router: Router) { }
 
   ngOnInit(): void {
-    this.searchService.currentMessage.subscribe(
-      message => this.search(message!)
-    );
     this.createChartLine()
   }
 
-  public search(isin: string) {
-    this.highchartService.getDesc(isin)
-    let chartResult: Observable<chartResponse>;
 
-    chartResult = this.highchartService.getDesc(isin);
-    chartResult.subscribe({
-      next: (res) => {
-        if (res.isError && res.statusCode == 401) {
-          //  بعدا کامل شود
-        } else {
-          this.result = res;
-        
-        }
-      }
-    })
-  }
   private getRandomNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
   private createChartLine(): void {
-    let date = new Date();
-    const data: any[] = [];
+    let data: chartResponse;
 
-    for (let i = 0; i < 10; i++) {
-      date.setDate(new Date().getDate() + i);
-      data.push([`${date.getDate()}/${date.getMonth() + 1}`, this.getRandomNumber(0, 1000)]);
-    }
+    this.highchartService.getDesc().subscribe(res => {
 
-    const chart = Highcharts.chart('chart-line', {
-      chart: {
-        type: 'line',
-      },
-      title: {
-        text: 'فروش - خرید ',
-      },
-      credits: {
-        enabled: false,
-      },
-      legend: {
-        enabled: false,
-      },
-      yAxis: {
+
+      const chart = Highcharts.chart('chart-line', {
+        chart: {
+          type: 'line',
+        },
         title: {
-          text: null,
-        }
-      },
-      xAxis: {
-        type: 'category',
-      },
-      tooltip: {
-        headerFormat: `<div>Date: {point.key}</div>`,
-        pointFormat: `<div>{series.name}: {point.y}</div>`,
-        shared: true,
-        useHTML: true,
-      },
-      series: [{
-        name: 'Amount',
-        data,
-      }],
-    } as any);
+          text: 'فروش - خرید ',
+        },
+        credits: {
+          enabled: false,
+        },
+        legend: {
+          enabled: false,
+        },
+        yAxis: {
+          title: {
+            text: null,
+          }
+        },
+        xAxis: {
+          type: 'category',
+        },
+        tooltip: {
+          headerFormat: `<div>Date: {point.key}</div>`,
+          pointFormat: `<div>{series.name}: {point.y}</div>`,
+          shared: true,
+          useHTML: true,
+        },
+        series: [{
+          name: 'Amount',
+          res,
+        }],
+      } as any);
+    });
 
-    setInterval(() => {
-      date.setDate(date.getDate() + 1);
-      chart.series[0].addPoint([`${date.getDate()}/${date.getMonth() + 1}`, this.getRandomNumber(0, 1000)], true, true);
-    }, 1500);
+
+
+    // setInterval(() => {
+    //   date.setDate(date.getDate() + 1);
+    //   chart.series[0].addPoint([`${date.getDate()}/${date.getMonth() + 1}`, this.getRandomNumber(0, 1000)], true, true);
+    // }, 1500);
   }
 
 }

@@ -15,10 +15,10 @@ export class HighchartService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  public getDesc(isin: string) {
+  public getDesc() {
     return this.http
       .get<chartResponse>(
-        this.descUrl + isin,
+        this.descUrl,
 
         {
           headers: new HttpHeaders()
